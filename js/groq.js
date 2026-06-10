@@ -4,7 +4,8 @@
 
 // API Key is stored securely in browser localStorage.
 // Users must enter their Groq API key in the Settings page of the app.
-const GROQ_API_KEY = localStorage.getItem('groq_api_key') || '';
+// Reads fresh from localStorage on every call so saving the key takes effect immediately.
+const getApiKey = () => localStorage.getItem('groq_api_key') || '';
 const GROQ_BASE_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 // Models
@@ -98,7 +99,7 @@ async function analyzeImage(base64Data, mimeType = 'image/jpeg') {
   const response = await fetch(GROQ_BASE_URL, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${GROQ_API_KEY}`,
+      'Authorization': `Bearer ${getApiKey()}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
@@ -155,7 +156,7 @@ async function sendChatMessage(messages) {
   const response = await fetch(GROQ_BASE_URL, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${GROQ_API_KEY}`,
+      'Authorization': `Bearer ${getApiKey()}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
@@ -174,7 +175,7 @@ async function sendChatMessage(messages) {
 async function testConnection() {
   try {
     const response = await fetch('https://api.groq.com/openai/v1/models', {
-      headers: { 'Authorization': `Bearer ${GROQ_API_KEY}` }
+      headers: { 'Authorization': `Bearer ${getApiKey()}` }
     });
     return response.ok;
   } catch {
