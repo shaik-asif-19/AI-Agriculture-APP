@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0f0d" />
+  <meta name="description" content="AgriAI — AI-powered crop disease detection, pest analysis, weather-aware farming guidance and multilingual advisory for Indian farmers." />
+  <meta name="keywords" content="agriculture AI, crop disease detection, smart farming, pest control, plant health, India farming" />
+  <meta name="author" content="AgriAI" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AgriAI — Smart Agriculture Intelligence" />
+  <meta property="og:description" content="AI-powered crop analysis, disease detection, and farming advisory for rural communities." />
+  <meta property="og:type" content="website" />
+
+  <title>AgriAI — Smart Agriculture & Environment Intelligence</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <!-- Leaflet CSS for Map selection -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>" />
+
+  <!-- Splash Screen Styles -->
+  <style>
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, #0a1a0f 0%, #0d2b1a 50%, #0a1a0f 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    #splash.fade-out {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    .splash-logo {
+      font-size: 72px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .splash-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #52b788, #95d5b2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .splash-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+    }
+
+    .splash-bar {
+      width: 200px;
+      height: 3px;
+      background: rgba(82,183,136,0.2);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .splash-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2d6a4f, #52b788);
+      border-radius: 9999px;
+      animation: fillBar 1.8s ease forwards;
+      --target-width: 100%;
+    }
+
+    .splash-version {
+      position: absolute;
+      bottom: 32px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.25);
+      font-family: 'Inter', sans-serif;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    @keyframes fillBar {
+      from { width: 0%; }
+      to   { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ── Splash Screen ─────────────────────── -->
+  <div id="splash" role="progressbar" aria-label="Loading AgriAI">
+    <div class="splash-logo">🌱</div>
+    <div class="splash-title">AgriAI</div>
+    <div class="splash-sub">AI Agriculture & Environment Intelligence<br>स्मार्ट कृषि बुद्धिमत्ता • స్మార్ట్ వ్యవసాయ తెలివి</div>
+    <div class="splash-bar">
+      <div class="splash-bar-fill"></div>
+    </div>
+    <div class="splash-version">v1.0 · Powered by Groq AI</div>
+  </div>
+
+  <!-- ── App Shell ────────────────────────── -->
+  <div id="app" role="main">
+    <!-- Top Header -->
+    <header id="app-header" role="banner">
+      <!-- Populated by app.js -->
+    </header>
+
+    <!-- Page Content -->
+    <main id="page-container" role="main" aria-live="polite">
+      <!-- Pages render here dynamically -->
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav id="bottom-nav" role="navigation" aria-label="Main navigation">
+      <!-- Populated by app.js -->
+    </nav>
+  </div>
+
+  <!-- ── JavaScript Modules (order matters) ── -->
+  <!-- Utilities first -->
+  <script src="js/i18n.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/ui.js"></script>
+  <!-- Leaflet JS for Map selection -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/camera.js"></script>
+
+  <!-- API Modules -->
+  <script src="js/groq.js"></script>
+  <script src="js/weather.js"></script>
+
+  <!-- Pages -->
+  <script src="pages/home.js"></script>
+  <script src="pages/scan.js"></script>
+  <script src="pages/advisor.js"></script>
+  <script src="pages/weather_page.js"></script>
+  <script src="pages/recommendations.js"></script>
+  <script src="pages/history_page.js"></script>
+  <script src="pages/settings.js"></script>
+  <script src="pages/about.js"></script>
+
+  <!-- App Router (last) -->
+  <script src="js/app.js"></script>
+
+  <!-- Splash Screen Logic -->
+  <script>
+    // Dismiss splash after load + animation completes
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash');
+        if (splash) {
+          splash.classList.add('fade-out');
+          setTimeout(() => splash.remove(), 550);
+        }
+      }, 2000);
+    });
+
+    // PWA: prevent zoom on double-tap
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) e.preventDefault();
+      lastTouchEnd = now;
+    }, false);
+
+    // Prevent context menu on long press
+    document.addEventListener('contextmenu', (e) => {
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

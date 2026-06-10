@@ -1,0 +1,407 @@
+/* =============================================
+   MAIN.CSS — Design System & Global Styles
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Telugu:wght@400;500;600&display=swap');
+
+/* ── Color Tokens ─────────────────────────── */
+:root {
+  /* Brand */
+  --primary:        #2d6a4f;
+  --primary-light:  #3a8a65;
+  --primary-dark:   #1b4332;
+  --accent:         #52b788;
+  --accent-light:   #74c69d;
+  --accent-glow:    rgba(82, 183, 136, 0.25);
+
+  /* Semantic */
+  --success:        #40916c;
+  --warning:        #f4a261;
+  --warning-dark:   #e76f51;
+  --danger:         #e63946;
+  --danger-light:   #ff6b6b;
+  --info:           #4cc9f0;
+
+  /* Backgrounds */
+  --bg:             #0a0f0d;
+  --bg-alt:         #0d1510;
+  --surface:        #111a14;
+  --surface-2:      #162018;
+  --surface-3:      #1d2b20;
+  --surface-4:      #243329;
+  --glass:          rgba(22, 32, 24, 0.85);
+  --glass-border:   rgba(82, 183, 136, 0.15);
+
+  /* Text */
+  --text:           #e8f0eb;
+  --text-muted:     #8fad97;
+  --text-dim:       #5a7560;
+  --text-on-accent: #0a0f0d;
+
+  /* Borders */
+  --border:         rgba(82, 183, 136, 0.12);
+  --border-hover:   rgba(82, 183, 136, 0.30);
+
+  /* Spacing */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   32px;
+  --space-2xl:  48px;
+
+  /* Radius */
+  --radius-xs:  6px;
+  --radius-sm:  10px;
+  --radius-md:  16px;
+  --radius-lg:  24px;
+  --radius-xl:  32px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.4);
+  --shadow-lg:  0 8px 40px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 24px rgba(82, 183, 136, 0.25);
+
+  /* Typography */
+  --font-display: 'Outfit', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-multi:   'Noto Sans Devanagari', 'Noto Sans Telugu', 'Inter', sans-serif;
+
+  /* Nav */
+  --nav-height: 70px;
+  --header-height: 60px;
+
+  /* Transitions */
+  --transition-fast:   0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow:   0.4s ease;
+}
+
+/* ── Reset & Base ──────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+/* ── Typography ────────────────────────────── */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+h2 { font-size: clamp(1.2rem, 4vw, 1.6rem); }
+h3 { font-size: clamp(1rem, 3vw, 1.2rem); }
+h4 { font-size: 0.95rem; }
+
+p, span, li {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--accent-light); }
+
+/* Lang-specific fonts */
+:lang(hi) { font-family: 'Noto Sans Devanagari', var(--font-body); }
+:lang(te) { font-family: 'Noto Sans Telugu', var(--font-body); }
+
+/* ── App Layout ────────────────────────────── */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  background: var(--bg);
+  box-shadow: 0 0 60px rgba(0,0,0,0.5);
+}
+
+/* ── Top Header ────────────────────────────── */
+#app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-md);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.header-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: var(--shadow-glow);
+}
+
+.header-logo-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  background: linear-gradient(135deg, var(--accent-light), #95d5b2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.header-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all var(--transition-fast);
+  color: var(--text-muted);
+}
+.header-btn:hover {
+  background: var(--surface-3);
+  border-color: var(--border-hover);
+  color: var(--accent);
+}
+
+/* ── Page Container ────────────────────────── */
+#page-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: calc(var(--nav-height) + 16px);
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar */
+#page-container::-webkit-scrollbar { width: 0; }
+#page-container { scrollbar-width: none; }
+
+/* ── Bottom Navigation ─────────────────────── */
+#bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  height: var(--nav-height);
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  padding: 0 var(--space-sm);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-normal);
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.nav-item .nav-icon {
+  font-size: 22px;
+  transition: transform var(--transition-normal);
+  line-height: 1;
+}
+
+.nav-item .nav-label {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  transition: color var(--transition-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.nav-item:hover .nav-icon { transform: translateY(-2px); }
+
+.nav-item.active .nav-label { color: var(--accent); }
+.nav-item.active .nav-icon  { transform: translateY(-3px); }
+
+/* Scan FAB style */
+.nav-item.nav-scan {
+  position: relative;
+}
+.nav-item.nav-scan .nav-icon-wrap {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 20px rgba(82, 183, 136, 0.5);
+  transition: all var(--transition-normal);
+  margin-top: -12px;
+}
+.nav-item.nav-scan:hover .nav-icon-wrap,
+.nav-item.nav-scan.active .nav-icon-wrap {
+  box-shadow: 0 6px 28px rgba(82, 183, 136, 0.7);
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* Active indicator dot */
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+}
+.nav-item.nav-scan.active::after { display: none; }
+
+/* ── Section & Layout Utilities ────────────── */
+.page { padding: var(--space-md); }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.see-all-btn {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  background: var(--accent-glow);
+  border: 1px solid var(--glass-border);
+  transition: all var(--transition-fast);
+}
+.see-all-btn:hover {
+  background: rgba(82, 183, 136, 0.3);
+}
+
+/* ── Gradient Backgrounds ──────────────────── */
+.gradient-hero {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--bg-alt) 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface) 100%);
+}
+
+/* ── Scroll Padding (for sticky header) ────── */
+[id] { scroll-margin-top: calc(var(--header-height) + 8px); }
+
+/* ── Divider ───────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-md) 0;
+}
+
+/* ── Empty State ───────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+  gap: var(--space-md);
+}
+
+.empty-state-icon {
+  font-size: 64px;
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-state-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.empty-state-desc {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  max-width: 260px;
+}

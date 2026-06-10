@@ -1,0 +1,192 @@
+/* =============================================
+   ANIMATIONS.CSS — Micro-animations & Transitions
+   ============================================= */
+
+/* Page transitions */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Scan line animation */
+@keyframes scanLine {
+  0%   { top: 10%; }
+  50%  { top: 85%; }
+  100% { top: 10%; }
+}
+
+@keyframes scanPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(82, 183, 136, 0.4); }
+  50%       { box-shadow: 0 0 0 16px rgba(82, 183, 136, 0); }
+}
+
+/* AI thinking dots */
+@keyframes typingDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%            { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Progress bar fill */
+@keyframes fillBar {
+  from { width: 0%; }
+  to   { width: var(--target-width, 100%); }
+}
+
+/* Confidence ring */
+@keyframes drawRing {
+  from { stroke-dashoffset: 251; }
+  to   { stroke-dashoffset: var(--ring-offset, 0); }
+}
+
+/* Heartbeat for alerts */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.1); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.05); }
+  70%       { transform: scale(1); }
+}
+
+/* Float for hero icon */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Shimmer for skeleton loaders */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Toast slide in */
+@keyframes toastIn {
+  from { transform: translateY(-100%) translateX(-50%); opacity: 0; }
+  to   { transform: translateY(0) translateX(-50%); opacity: 1; }
+}
+
+@keyframes toastOut {
+  from { transform: translateY(0) translateX(-50%); opacity: 1; }
+  to   { transform: translateY(-100%) translateX(-50%); opacity: 0; }
+}
+
+/* Ripple */
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* Glow pulse for active nav */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(82, 183, 136, 0.4); }
+  50%       { box-shadow: 0 0 20px rgba(82, 183, 136, 0.8); }
+}
+
+/* =============================================
+   UTILITY ANIMATION CLASSES
+   ============================================= */
+
+.anim-fade-in       { animation: fadeIn 0.4s ease forwards; }
+.anim-fade-in-up    { animation: fadeInUp 0.5s ease forwards; }
+.anim-scale-in      { animation: scaleIn 0.35s ease forwards; }
+.anim-slide-left    { animation: slideInLeft 0.4s ease forwards; }
+.anim-slide-right   { animation: slideInRight 0.4s ease forwards; }
+
+/* Stagger delays for list items */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.10s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.20s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.30s; }
+
+/* Spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(82, 183, 136, 0.2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner-sm {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--surface-3) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* Typing indicator */
+.typing-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: typingDot 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Float */
+.anim-float { animation: float 3s ease-in-out infinite; }
+
+/* Heartbeat */
+.anim-heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
+
+/* Scan overlay line */
+.scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: scanLine 2s ease-in-out infinite;
+}
+
+/* Page enter animation */
+.page-enter {
+  animation: fadeInUp 0.4s ease forwards;
+}
