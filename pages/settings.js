@@ -39,14 +39,59 @@ function renderSettings() {
       <!-- API Info -->
       <div class="settings-section">
         <div class="settings-section-title">🤖 AI Configuration</div>
+
+        <!-- API Key Input -->
+        <div class="card" style="padding:var(--space-md);margin-bottom:var(--space-sm)">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span style="font-size:20px">🔑</span>
+            <div>
+              <div style="font-size:0.88rem;font-weight:700;color:var(--text)">Groq API Key</div>
+              <div style="font-size:0.72rem;color:var(--text-dim)">Required to use AI features</div>
+            </div>
+            ${localStorage.getItem('groq_api_key') 
+              ? `<span class="badge badge-success" style="margin-left:auto">✅ Saved</span>` 
+              : `<span class="badge badge-danger" style="margin-left:auto;background:rgba(220,53,69,0.2);color:#ff6b6b;border:1px solid rgba(220,53,69,0.3)">❌ Missing</span>`}
+          </div>
+          <div style="position:relative;display:flex;gap:8px;align-items:center">
+            <input 
+              type="password" 
+              id="groq-api-key-input"
+              placeholder="gsk_xxxxxxxxxxxxxxxxxxxxxxxx"
+              value="${localStorage.getItem('groq_api_key') || ''}"
+              style="flex:1;background:var(--surface-3);border:1px solid var(--border);border-radius:var(--radius-sm);
+                padding:10px 40px 10px 12px;font-size:0.82rem;color:var(--text);outline:none;
+                font-family:monospace;transition:border 0.2s;"
+              onfocus="this.style.borderColor='var(--accent)'"
+              onblur="this.style.borderColor='var(--border)'"
+            />
+            <button 
+              onclick="window.SettingsPage.toggleKeyVisibility()" 
+              id="toggle-key-btn"
+              style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-muted)"
+              title="Show/Hide Key">👁️</button>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn btn-primary btn-sm" style="flex:1" onclick="window.SettingsPage.saveApiKey()">
+              💾 Save Key
+            </button>
+            <button class="btn btn-ghost btn-sm" style="flex:1" onclick="window.SettingsPage.clearApiKey()">
+              🗑️ Clear
+            </button>
+          </div>
+          <div style="margin-top:10px;font-size:0.72rem;color:var(--text-muted);line-height:1.5;background:rgba(82,183,136,0.07);border-radius:var(--radius-sm);padding:8px">
+            💡 Get your free API key at <strong style="color:var(--accent)">console.groq.com</strong><br>
+            🔒 Key is saved only in your browser (localStorage)
+          </div>
+        </div>
+
+        <!-- Models Info -->
         <div class="card" style="padding:var(--space-md)">
           <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-sm)">
             <div style="width:36px;height:36px;background:rgba(82,183,136,0.15);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:18px">🚀</div>
             <div>
               <div style="font-size:0.88rem;font-weight:600;color:var(--text)">Groq AI</div>
-              <div style="font-size:0.74rem;color:var(--text-dim)">Connected & Active</div>
+              <div style="font-size:0.74rem;color:var(--text-dim)">Powered by Meta LLaMA</div>
             </div>
-            <span class="badge badge-success" style="margin-left:auto">✅ Live</span>
           </div>
           <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.5">
             <div>🔬 <strong>Vision Model:</strong> LLaMA 4 Scout 17B</div>
@@ -348,4 +393,39 @@ function clearChat() {
   renderSettings();
 }
 
-window.SettingsPage = { render: renderSettings, setLanguage, openLocationMap, testConnection, clearHistory, clearChat };
+function saveApiKey() {
+  const input = document.getElementById('groq-api-key-input');
+  const key = input ? input.value.trim() : '';
+  if (!key) {
+    UI.showToast('❌ Please enter a valid API key', 'error');
+    return;
+  }
+  if (!key.startsWith('gsk_')) {
+    UI.showToast('⚠️ Key should start with gsk_', 'warning');
+  }
+  localStorage.setItem('groq_api_key', key);
+  UI.showToast('✅ API Key saved successfully!', 'success');
+  // Re-render to update the badge
+  renderSettings();
+}
+
+function clearApiKey() {
+  localStorage.removeItem('groq_api_key');
+  UI.showToast('🗑️ API Key cleared', 'warning');
+  renderSettings();
+}
+
+function toggleKeyVisibility() {
+  const input = document.getElementById('groq-api-key-input');
+  const btn = document.getElementById('toggle-key-btn');
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    if (btn) btn.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    if (btn) btn.textContent = '👁️';
+  }
+}
+
+window.SettingsPage = { render: renderSettings, setLanguage, openLocationMap, testConnection, clearHistory, clearChat, saveApiKey, clearApiKey, toggleKeyVisibility };
